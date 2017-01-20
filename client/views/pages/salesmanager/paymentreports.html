@@ -1,0 +1,148 @@
+<template name="paymentreports">
+  <ol class="breadcrumb">
+    <li><a href="{{pathFor route='dashboard'}}">Sales Management</a></li>
+    <li><a href="{{pathFor route='payments'}}">Payments</a></li>
+  </ol>
+  <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+    <div class="input-group">
+      <input type="number" placeholder="Search payments by PaymentID..." class=" form-control search">
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-flat ripple-effect btn-info"> Search</button>
+      </span>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- Order List display with edit delete modifications -->
+        <div class="ibox">
+          <div class="ibox-content">
+
+            <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
+              <thead>
+                <tr>
+
+                  <!-- <th >Payment ID</th> -->
+                  <th data-hide="phone">Customer Name</th>
+                  <th data-hide="phone">Orders</th>
+                  <th data-hide="phone">Total Amount</th>
+                  <th data-hide="phone">Reference No</th>
+                  <th data-hide="phone">Status</th>
+                  <th class="text-right">Action</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                {{#each fun}}
+                <tr>
+                  <td>
+                    {{vendorName vendorID}}
+                  </td>
+                  <td>
+                    {{settlement.total_orders}}
+                  </td>
+                  <td>
+                    INR {{dividedBy settlement.total_user_paid}}.00
+                  </td>
+
+                  <td>
+                  INR {{dividedBy settlement.total_commision}}.00
+                  </td>
+                  <td>
+                  INR {{ dividedBy settlement.total_payable}}.00
+                  </td>
+                  <td>
+                    {{#if settlement.paid}}
+                    <!-- <button class="btn btn-flat ripple-effect btn-info paid">Paid</button> -->
+                    {{settlement.transaction_id}} {{else}}
+                    <!-- <button class="btn btn-flat ripple-effect btn-info edit">Edit</button> -->
+                    <button class="btn btn-flat ripple-effect btn-info pay">Pay</button>
+                    {{/if}}
+                  </td>
+                  <td>
+                    {{#if settlement.paid}}
+                    <button class="btn btn-flat ripple-effect btn-info paid">Paid</button>
+                    {{else}}
+                    <!-- <button class="btn btn-flat ripple-effect btn-info edit">Edit</button> -->
+                    <button class="btn btn-flat ripple-effect btn-info pay">Pending</button>
+                    {{/if}}
+                  </td>
+                  <td class="text-right">
+                    <button class="btn btn-flat ripple-effect btn-info view">View</button>
+
+                  </td>
+
+                </tr>
+                {{/each}}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="7">
+                    <ul class="pagination pull-right"></ul>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+   {{>alertOnview}} {{>alertOnpay}}
+</template>
+
+
+<template name="alertOnview">
+  <div class="modal fade" id="view">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content deletemodal">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Payment Details</h4>
+        </div>
+        <div class="modal-body">
+          {{#each fun1}} Vendor Id: {{vendorID}}
+          <br> Users Paid Amount: INR {{dividedBy settlement.total_user_paid}}.00
+          <br> Commission: INR {{dividedBy settlement.total_commision}}.00
+          <br> Profit: INR {{dividedBy settlement.total_profit}}.00
+          <br> Handling Charges: {{dividedBy settlement.handling_charges}} <br>Duriation: {{time_start}} <br><span class="tab5"> To </span><br>
+           {{time_end}} {{/each}}
+        </div>
+        <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="ok">Ok</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">Cancel</button>
+      </div> -->
+
+      </div>
+    </div>
+  </div>
+</template>
+
+
+<template name="alertOnpay">
+  <div class="modal fade" id="pay">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content deletemodal">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Payment Details</h4>
+        </div>
+        <div class="modal-body">
+
+          Reference No:
+          <br>
+          <input type="text" class="reference1" value="">
+          <br>
+          <br>
+          <span class="tab4">
+            <button type="button" name="button" class="btn1 btn-primary">Ok</button>
+          </span>
+        </div>
+        <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="ok">Ok</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">Cancel</button>
+      </div> -->
+
+      </div>
+    </div>
+  </div>
+</template>

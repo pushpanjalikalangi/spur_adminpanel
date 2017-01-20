@@ -1,0 +1,97 @@
+<template name="devicemanager">
+    <div class="wrapper wrapper-content animated fadeInRight">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5><center>Pending Users</center></h5>
+            </div>
+           <div class="ibox-content">
+         <!-- <div class="row"> -->
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Account Id</th>
+                <th>Name</th>
+                <th>Mobile Number</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each deactivate}}
+              <tr>
+                <td>{{account_id}}</td>
+                <td>{{user_details.name}}</td>
+                <td>{{user_details.mobile}}</td>
+                <td><button id="activate" class="btn btn-primary btn-xs">Activate</button></td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5><center>Activated Users</center></h5>
+      </div>
+     <div class="ibox-content">
+   <!-- <div class="row"> -->
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Account Id</th>
+          <th>Master Id</th>
+          <th>Name</th>
+          <th>No.Of Boards</th>
+          <th>Slave Details</th>
+          <th>Switches</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each devicedetails}}
+         <tr>
+           <td>{{account_id}}</td>
+           <td>{{device_details.master_id}}</td>
+           <td>{{user_details.name}}</td>
+           <td>{{#with device_details}}
+           {{slave_details.length}}       
+         {{/with}}</td>
+           <td>
+             {{#with device_details}}
+             {{#each slave_details}}
+               {{slave_id}},{{name}}<hr>
+           {{/each}}
+           {{/with}}
+           </td>
+           <td>
+             {{#with device_details}}
+             {{#each slave_details}}
+             {{#each switches}}
+               {{id}},{{name}},{{state}}<hr>
+           {{/each}}
+           {{/each}}
+           {{/with}}
+           </td>
+           <td>{{active}}</td>
+         </tr>
+         {{/each}}
+      </tbody>
+    </table>
+  </div>
+  <!-- </div> -->
+  </div>
+  </div>
+  </div>
+
+
+</div>
+</div>
+</template>

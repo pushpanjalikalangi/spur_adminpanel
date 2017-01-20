@@ -1,0 +1,561 @@
+<template name="order">
+  <ol class="breadcrumb">
+    <li><a href="{{pathFor route='dashboard'}}">Sales Management</a></li>
+    <li><a href="{{pathFor route='orders'}}">Orders</a></li>
+  </ol>
+  <div class="wrapper wrapper-content animated fadeINR &nbsp;ight ecommerce">
+    <div class="ibox-content m-b-sm border-bottom">
+      <!--Search by Customer name  -->
+      <div class="input-group">
+        <input type="number" placeholder="Search orders by OrderId..." class=" form-control search">
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-flat ripple-effect btn-info"> Search</button>
+       </span>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+
+          <!-- Order List display with edit delete modifications -->
+          <div class="ibox">
+            <div class="ibox-content">
+              <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a data-toggle="tab" href="#tab-1">Orders In Progress</a></li>
+                  <li class=""><a data-toggle="tab" href="#tab-2">Completed Orders</a></li>
+                  <li class=""><a data-toggle="tab" href="#tab-3">Payment Pending</a></li>
+                  <li class=""><a data-toggle="tab" href="#tab-4">Cancel Orders</a></li>
+
+                </ul>
+                <div class="tab-content">
+                  <div id="tab-1" class="tab-pane active">
+                    <div class="panel-body">
+                      <table class="table table-stripped" data-page-size="15">
+                        <thead>
+                          <tr>
+
+                            <th>Order ID</th>
+                            <th data-hide="phone">Buyer ID</th>
+                            <th data-hide="phone">Recipient ID</th>
+                            <th data-hide="phone">Amount</th>
+                            <th data-hide="phone">Status</th>
+                            <th class="text-right">Action</th>
+
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {{#each orderInPrograss}}
+
+                          <tr>
+                            <td>
+                              {{card_details.serialNo}}
+                            </td>
+                            <td>
+                              {{buyer_details.name}}
+                            </td>
+                            <td>
+                              {{recepient_details.name}}
+                            </td>
+                            <td>
+                              INR &nbsp; {{dividedBy card_details.amount}}.00
+                            </td>
+                            {{#if card_details.card_cancel}}
+                            <td>
+                              <button class="btn-danger"><i class="fa fa-check"></i>Order Cancelled</button>
+                            </td>
+                            {{else}} {{#if transaction_details.status}} {{#if card_details.claim_status}}
+                            <td>
+                              <button class="btn-success"><i class="fa fa-check"></i> Order Completed</button>
+                            </td>
+                            {{else}}
+                            <td>
+                              <button class="btn-warning"><i class="fa fa-spinner fa-pulse"></i> Order in Progress</button>
+                            </td>
+                            {{/if}} {{else}} {{#if card_details.claim_status }}
+                            <td>
+                              <button class="btn-danger"><i class="fa fa-exclamation-triangle"></i><span class="tab10">Error</span></button>
+                            </td>
+                            {{else}}
+                            <td>
+                              <button class="btn-danger" style="color:black"><i class="fa fa-repeat"></i> Payment Pending</button>
+                            </td>
+                            {{/if}} {{/if}} {{/if}}
+                            <td class="text-right">
+                              <!-- <button class="btn btn-flat ripple-effect btn-info edit">Edit</button> -->
+                              <button class="btn btn-flat ripple-effect btn-info delete">View</button>
+
+                            </td>
+                          </tr>
+                          {{/each}}
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td colspan="7">
+                              <ul class="pagination pull-right"></ul>
+                            </td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div id="tab-2" class="tab-pane">
+                    <div class="panel-body">
+                      <table class="table table-stripped" data-page-size="15">
+                        <thead>
+                          <tr>
+
+                            <th>Order ID</th>
+                            <th data-hide="phone">Buyer ID</th>
+                            <th data-hide="phone">Recipient ID</th>
+                            <th data-hide="phone">Amount</th>
+                            <th data-hide="phone">Status</th>
+                            <th class="text-right">Action</th>
+
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {{#each completeOrder}}
+
+                          <tr>
+                            <td>
+                              {{card_details.serialNo}}
+                            </td>
+                            <td>
+                              {{buyer_details.name}}
+                            </td>
+                            <td>
+                              {{recepient_details.name}}
+                            </td>
+                            <td>
+                              INR &nbsp; {{dividedBy card_details.amount}}.00
+                            </td>
+                            {{#if card_details.card_cancel}}
+                            <td>
+                              <button class="btn-danger"><i class="fa fa-check"></i>Order Cancelled</button>
+                            </td>
+                            {{else}} {{#if transaction_details.status}} {{#if card_details.claim_status}}
+                            <td>
+                              <button class="btn-success"><i class="fa fa-check"></i> Order Completed</button>
+                            </td>
+                            {{else}}
+                            <td>
+                              <button class="btn-warning"><i class="fa fa-spinner fa-pulse"></i> Order in Progress</button>
+                            </td>
+                            {{/if}} {{else}} {{#if card_details.claim_status }}
+                            <td>
+                              <button class="btn-danger"><i class="fa fa-exclamation-triangle"></i><span class="tab10">Error</span></button>
+                            </td>
+                            {{else}}
+                            <td>
+                              <button class="btn-danger" style="color:black"><i class="fa fa-repeat"></i> Payment Pending</button>
+                            </td>
+                            {{/if}} {{/if}} {{/if}}
+                            <td class="text-right">
+                              <!-- <button class="btn btn-flat ripple-effect btn-info edit">Edit</button> -->
+                              <button class="btn btn-flat ripple-effect btn-info delete">View</button>
+
+                            </td>
+                          </tr>
+                          {{/each}}
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td colspan="7">
+                              <ul class="pagination pull-right"></ul>
+                            </td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div id="tab-3" class="tab-pane">
+                    <div class="panel-body">
+                      <table class="table table-stripped" data-page-size="15">
+                        <thead>
+                          <tr>
+
+                            <th>Order ID</th>
+                            <th data-hide="phone">Buyer ID</th>
+                            <th data-hide="phone">Recipient ID</th>
+                            <th data-hide="phone">Amount</th>
+                            <th data-hide="phone">Status</th>
+                            <th class="text-right">Action</th>
+
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {{#each paymentPending}}
+
+                          <tr>
+                            <td>
+                              {{card_details.serialNo}}
+                            </td>
+                            <td>
+                              {{buyer_details.name}}
+                            </td>
+                            <td>
+                              {{recepient_details.name}}
+                            </td>
+                            <td>
+                              INR &nbsp; {{dividedBy card_details.amount}}.00
+                            </td>
+                            {{#if card_details.card_cancel}}
+                            <td>
+                              <button class="btn-danger del"><i class="fa fa-check"></i>Order Cancelled</button>
+                            </td>
+                            {{else}} {{#if transaction_details.status}} {{#if card_details.claim_status}}
+                            <td>
+                              <button class="btn-success del"><i class="fa fa-check"></i> Order Completed</button>
+                            </td>
+                            {{else}}
+                            <td>
+                              <button class="btn-warning del"><i class="fa fa-spinner fa-pulse"></i> Order in Progress</button>
+                            </td>
+                            {{/if}} {{else}} {{#if card_details.claim_status }}
+                            <td>
+                              <button class="btn-danger del"><i class="fa fa-exclamation-triangle"></i><span class="tab10">Error</span></button>
+                            </td>
+                            {{else}}
+                            <td>
+                              <button class="btn-danger del" style="color:black"><i class="fa fa-repeat"></i> Payment Pending</button>
+                            </td>
+                            {{/if}} {{/if}} {{/if}}
+                            <td class="text-right">
+                              <!-- <button class="btn btn-flat ripple-effect btn-info edit">Edit</button> -->
+                              <button class="btn btn-flat ripple-effect btn-info delete">View</button>
+
+                            </td>
+                          </tr>
+                          {{/each}}
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td colspan="7">
+                              <ul class="pagination pull-right"></ul>
+                            </td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div id="tab-4" class="tab-pane">
+                    <div class="panel-body">
+                      <table class="table table-stripped" data-page-size="15">
+                        <thead>
+                          <tr>
+
+                            <th>Order ID</th>
+                            <th data-hide="phone">Buyer ID</th>
+                            <th data-hide="phone">Recipient ID</th>
+                            <th data-hide="phone">Amount</th>
+                            <th data-hide="phone">Status</th>
+                            <th class="text-right">Action</th>
+
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {{#each cancelOrders}}
+
+                          <tr>
+                            <td>
+                              {{card_details.serialNo}}
+                            </td>
+                            <td>
+                              {{buyer_details.name}}
+                            </td>
+                            <td>
+                              {{recepient_details.name}}
+                            </td>
+                            <td>
+                              INR &nbsp; {{dividedBy card_details.amount}}.00
+                            </td>
+                            {{#if card_details.card_cancel}}
+                            <td>
+                              <button class="btn-danger del"><i class="fa fa-check"></i>Order Cancelled</button>
+                            </td>
+                            {{else}} {{#if transaction_details.status}} {{#if card_details.claim_status}}
+                            <td>
+                              <button class="btn-success del"><i class="fa fa-check"></i> Order Completed</button>
+                            </td>
+                            {{else}}
+                            <td>
+                              <button class="btn-warning del"><i class="fa fa-spinner fa-pulse"></i> Order in Progress</button>
+                            </td>
+                            {{/if}} {{else}} {{#if card_details.claim_status }}
+                            <td>
+                              <button class="btn-danger del"><i class="fa fa-exclamation-triangle"></i><span class="tab10">Error</span></button>
+                            </td>
+                            {{else}}
+                            <td>
+                              <button class="btn-danger del" style="color:black"><i class="fa fa-repeat"></i> Payment Pending</button>
+                            </td>
+                            {{/if}} {{/if}} {{/if}}
+                            <td class="text-right">
+                              <!-- <button class="btn btn-flat ripple-effect btn-info edit">Edit</button> -->
+                              <button class="btn btn-flat ripple-effect btn-info delete">View</button>
+
+                            </td>
+                          </tr>
+                          {{/each}}
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td colspan="7">
+                              <ul class="pagination pull-right"></ul>
+                            </td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="ibox-content">
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  {{> alertOnDeleteorder}}
+
+  {{>deleteOrder}}
+</template>
+<template name="alertOnDeleteorder">
+
+  <div class="modal fade" id="Delete">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content deletemodal1">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Order Details</h4>
+        </div>
+        {{#each details}}
+        <div class="modal-body">
+
+          <span class="tab"><img src="{{card_details.card_link}}" height="50%" width="70%" class="center" alt="" /></span>
+          <br>
+          <span class="tab3">Amount: INR &nbsp; {{dividedBy card_details.amount}}.00</span>
+          <br>
+          <div class="pull-left">
+            <span class="tabshow"><img src="{{buyer_details.photo}}" height="35%" width="35%" class="img-circle" alt="" /></span> Buyer
+            <br>
+            <span class="tabshow">{{buyer_details.name}}</span>
+            <br>
+            <!-- <span class="tabshow"><a href="{{pathFor route='profileuser'}}" target="_blank">{{buyer_details.id}}</a></span> -->
+          </div>
+          <div class="pull-right">
+            Recepient <img src="{{recepient_details.photo}}" height="35%" class="img-circle" width="35%" alt="" />
+            <br> {{recepient_details.name}}
+            <br>
+
+            <!-- <a href="{{pathFor route='profileuser'}}" target="_blank">{{recepient_details.id}}</a><br> -->
+          </div>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <input type="text" value="{{vendorID}}" class="hide vendorId">
+          <input type="text" value="{{dividedBy card_details.amount}}" class="hide camount">
+
+
+          <strong>OrderInfo</strong>
+          <br> Order ID:{{card_details.serialNo}}
+          <br> Serial No:{{card_details.serialNo}}
+          <br> View Key:{{card_details.key}}
+          <br> Order Date:{{card_details.time}}
+          <br> Order Status:{{#if card_details.card_cancel}} Order Cancelled {{else}} {{#if transaction_details.status}} {{#if card_details.claim_status}} Order Completed {{else}} Order in Progress {{/if}} {{else}} {{#if card_details.claim_status }} Error
+          {{else}} Payment Pending {{/if}} {{/if}} {{/if}}
+          <br> Order Amount:INR &nbsp; {{dividedBy card_details.amount}}.00
+          <br> {{#if card_details.coupon_code}} Coupon (Code):{{card_details.coupon_code}}
+          <br> Discount Amount:INR &nbsp; {{dividedBy card_details.discount_amount}}.00
+          <br> {{/if}} ServiceTax & Handling Charges:INR &nbsp;{{#with comm vendorID}}{{storeDetails.handling_charges}}
+          <br> {{#if ../card_details.coupon_code}} Coupon (Code):{{../card_details.coupon_code}}
+          <br> Discount Amount:INR &nbsp; {{dividedBy ../card_details.discount_amount}}.00
+          <br> Transaction Amount:INR &nbsp; {{Tamount ../card_details.amount ../card_details.discount_amount storeDetails.handling_charges}}
+          <br> {{else}} Transaction Amount:INR &nbsp; {{Tramount ../card_details.amount storeDetails.handling_charges}}
+          <br> {{/if}} {{/with}}
+
+          <strong>Buyer Info:</strong>
+          <br> Buyer ID:<a href="{{pathFor route='profilevendor'}}" target="_blank">{{buyer_details.id}}</a>
+
+          <br> Buyer Name:{{buyer_details.name}}
+          <br> Buyer e-mail:{{buyer_details.mail}}
+          <br> Buyer Ph No :
+          <br>
+
+          <strong>Recipient Info</strong>
+          <br> {{#if recepient_details.id}} Recipient ID:<a href="{{pathFor route='profileuser'}}" target="_blank">{{recepient_details.id}}</a>{{/if}}
+          <br> Recipient Name:{{recepient_details.name}}
+          <br> Recipient e-mail:{{recepient_details.mail}}
+          <br>Recipient Ph No:{{recepient_details.mobile}}
+          <br>
+
+          <strong>Vendor Info</strong>
+          <br> Vendor ID: <a href="{{pathFor route='profilevendor'}}" target="_blank">{{vendorID}}</a>
+          <br> Vendor Name:{{vendorName}}
+          <br> Vendor e-mail:{{vendorMail}}
+          <br> Vendor Ph No:
+          <br> {{#if transaction_details.status}}
+          <strong>Razor Transaction Info</strong>
+          <br> RP Transaction ID :<a href="{{pathFor route='transactions'}}" target="_blank">{{transaction_details.id}}</a>
+          <br> RP Transaction Date:{{transaction_details.created_at}}
+          <br> RP Transacton Status:{{transaction_details.status}}
+          <br> RP Transaction Amount:INR &nbsp; {{dividedBy transaction_details.amount}}.00
+          <br> RP Transaction Charges:INR &nbsp; {{razor transaction_details.fee transaction_details.service_tax}}
+          <br>
+
+          <strong>Vendor Transaction Info</strong>
+          <br> {{#with comm vendorID}} Vendor Commission : INR &nbsp;{{com storeDetails.commission ../card_details.amount}}
+          <br> Vendor Discount :
+          <br> Vendor Discount Amount:
+          <br> Vendor Payable : INR &nbsp;{{payable storeDetails.commission ../card_details.amount}}
+          <br>
+
+
+          <strong>Company Transaction Info</strong>
+          <br> Cost to Company: INR &nbsp;{{cost ../transaction_details.amount ../transaction_details.fee ../transaction_details.service_tax}}
+          <br> Profit to Company: INR &nbsp; {{profit ../transaction_details.amount ../card_details.amount ../transaction_details.fee ../transaction_details.service_tax storeDetails.commission}}
+          <br> {{/with}}
+          <strong>Payment Report Info</strong>
+          <br> Payment Report ID:
+          <br> Payment Report Date:
+          <br> Payment Status:
+          <br> {{else}}
+          <strong>Transaction Error:</strong> {{transaction_details.error.description}}<br> {{/if}}
+          <strong>Comments:</strong>
+          {{card_details.card_complete}}  {{card_details.card_cancel}}
+          <br> Last Updated By:
+          <!-- <button type="button" class="btn btn-primary" data-dismiss="modal" id="cancel1">Cancel</button> -->
+        </div>
+        <div class="modal-footer">
+          {{#if card_details.card_cancel}}
+          <button type="button" name="button" class="btn btn-danger">Cancelled</button>
+
+          {{else}} {{#if transaction_details.status}} {{#if card_details.claim_status}}
+          <button type="button" class="btn"><img src="/img/success.png" height="10%" width="10%" alt="" />Order Already fulfilled</button>
+          {{else}}
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="cancel1">Cancel Order</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="complete">Complete Order</button>
+
+          {{/if}} {{else}} {{#if card_details.claim_status}}
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="cancel1">Cancel Order</button>
+          <!-- <button type="button" class="btn btn-primary" data-dismiss="modal" id="complete">Complete Order</button> -->
+
+          {{else}}
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="cancel1">Cancel Order</button>
+          <!-- <button type="button" class="btn btn-primary" data-dismiss="modal" id="complete">Complete Order</button> -->
+
+          {{/if}} {{/if}} {{/if}}
+
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+  {{> alertOncancel}} {{> alertOnComplete}}
+</template>
+
+<!-- Conformation Dailog box on deleting orders -->
+<template name="alertOncancel">
+
+  <div class="modal fade" id="cancel">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content deletemodal">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Reason for cancelation??</h4>
+        </div>
+        <div class="modal-body">
+          <textarea class="form-control reason" rows="3" id="reason" value="" style="text-transform: capitalize;" required="true" wrap="soft"></textarea>
+          {{#each mails}}
+          <input type="text" value="{{card_details.amount}}" class="hide amount">
+          <input type="text" value="{{vendorName}}" class="hide vname">
+          <input type="text" value="{{card_details.serialNo}}" class="hide orderid">
+          <input type="text" value="{{card_details.time}}" class="hide time">
+          <input type="text" value="{{buyer_details.mail}}" class="hide buyermail">
+          <input type="text" value="{{card_details.card_link}}" class="hide card">
+          <input type="text" value="{{recepient_details.mail}}" class="hide recepientmail">
+          <input type="text" value="{{storeName}}" class="hide storeName">
+          <input type="text" value="{{recepient_details.name}}" class="hide recipientName">
+          <input type="text" value="{{buyer_details.name}}" class="hide buyerName">
+          <input type="text" value="{{recepient_details.mail}}" class="hide rmail">
+          <input type="text" value="{{buyer_details.mail}}" class="hide bmail">
+          <input type="text" value="{{vendorMail}}" class="hide vmail"> {{/each}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="ok1">Ok</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">Cancel</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>
+
+
+<template name="alertOnComplete">
+
+  <div class="modal fade" id="complete1">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content deletemodal">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Reason for completion??</h4>
+        </div>
+        <div class="modal-body">
+          <textarea class="form-control reason" rows="3" id="reason" value="" style="text-transform: capitalize;" required="true" wrap="soft"></textarea>
+          {{#each mails}}
+          <input type="text" value="{{card_details.amount}}" class="hide amount">
+          <input type="text" value="{{vendorName}}" class="hide vname">
+          <input type="text" value="{{card_details.serialNo}}" class="hide orderid">
+          <input type="text" value="{{card_details.time}}" class="hide time">
+          <input type="text" value="{{buyer_details.mail}}" class="hide buyermail">
+          <input type="text" value="{{card_details.card_link}}" class="hide card">
+          <input type="text" value="{{recepient_details.mail}}" class="hide recepientmail">
+          <input type="text" value="{{storeName}}" class="hide storeName">
+          <input type="text" value="{{recepient_details.name}}" class="hide recipientName">
+          <input type="text" value="{{buyer_details.name}}" class="hide buyerName">
+          <input type="text" value="{{recepient_details.mail}}" class="hide rmail">
+          <input type="text" value="{{buyer_details.mail}}" class="hide bmail">
+          <input type="text" value="{{vendorMail}}" class="hide vmail"> {{/each}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="ok1">Ok</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">Cancel</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="deleteOrder">
+
+  <div class="modal fade" id="deleteOrder">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content deletemodal">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Do you want Delete</h4>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary deleteCard" id="deleteCard">Ok</button>
+          <button type="button" class="btn btn-default cancel" data-dismiss="modal" id="cancel">Cancel</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>

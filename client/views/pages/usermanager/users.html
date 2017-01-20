@@ -1,0 +1,55 @@
+<template name="users">
+  <ol class="breadcrumb">
+    <li><a href="{{pathFor route='dashboard'}}">User Management</a></li>
+    <li><a href="{{pathFor route='users'}}">Users</a></li>
+  </ol>
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="input-group">
+      <input  placeholder="Search user by User Name or Account Number or Master Id" class=" form-control search">
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-flat ripple-effect btn-info"> Search</button>
+   </span>
+    </div>
+    <br>
+    <div class="row" >
+      {{# each fun}}
+      <div class="col-md-3" >
+        <!-- To display user details -->
+        <div class="ibox card2" >
+          {{#if active}}
+          <div class="ibox-content1 product-box height" style="border-color: #80ff80">
+            <a href="{{pathFor route='profileuser'}}">
+              <div class="coupon-imitation col-md-4 img1 grow ">
+                <!-- <img class="img-circle" alt="portrait" height="60%" width="100%"  src="{{fb_details.photo}}" /> -->
+              </div>
+                <div class="product-desc">
+                  <h4 class="text-muted">{{user_details.name}}</h4>
+                  <h4 class="text-muted">Account Nmber: {{account_id}}</h4>
+                  <h4 class="text-muted">{{#if active}} True {{else}}False {{/if}} </h4>
+                </div>
+              </a>
+            </div>
+            {{else}}
+            <div class="ibox-content1 product-box height" style="border-color: #ffb3b3">
+              <a href="{{pathFor route='profileuser'}}">
+                <div class="coupon-imitation col-md-4 img1 grow ">
+                  <!-- <img class="img-circle" alt="portrait" height="60%" width="100%"  src="{{fb_details.photo}}" /> -->
+                </div>
+                  <div class="product-desc">
+                    <h4 class="text-muted">{{user_details.name}}</h4>
+                    <h4 class="text-muted">Account Nmber: {{account_id}}</h4>
+                    <h4 class="text-muted">{{#if active}} True {{else}}False {{/if}} </h4>
+                  </div>
+                </a>
+              </div>
+            {{/if}}
+        </div>
+      </div>
+  {{/each}}
+
+    </div>
+
+
+
+  </div>
+</template>

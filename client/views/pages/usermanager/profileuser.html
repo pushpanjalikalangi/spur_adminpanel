@@ -1,0 +1,54 @@
+<template name="profileuser">
+  <ol class="breadcrumb">
+    <li><a href="{{pathFor route='users'}}">Users</a></li>
+    <li><a href="{{pathFor route='profileuser'}}">Profile Datails</a></li>
+  </ol>
+  <div id="wrapper">
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <b><h3>Profile Details</h3></b>
+                            </div>
+                              {{#each data}}
+                            <div class="ibox-content">
+                                <div class="row">
+                                    <div class="col-sm-5 b-r">
+                                      <h3><center>User Details</center></h3>
+                                      <div class="product-desc">
+                                        <!-- <h4> -->
+                                          <p><i class="fa fa-user"></i> {{user_details.name}}</p>
+                                          <p><i class="fa fa-id-card" aria-hidden="true"></i> {{account_id}}</p>
+                                          <p><i class="fa fa-phone"></i> {{user_details.mobile}}</p>
+                                          <p><i class="fa fa-envelope"></i> {{user_details.email}}</p>
+                                          <p><i class="fa fa-map-marker"></i> {{user_details.address}}</p>
+                                        <!-- </h4> -->
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                      <h3><center>Apps Details</center></h3>
+                                          <div class="product-desc">
+                                              {{#with user_details}}
+                                                {{#each apps}}
+                                                <h3><b>users</b></h3>
+                                                  <p><strong>Registration Id:</strong> {{reg_id}}</p>
+                                                  <p><strong>User Name:</strong> {{name}}</p>
+                                                  <p><strong>Mobile Number:</strong> {{mobile}}</p><br/>
+                                                {{/each}}
+                                              {{/with}}
+                                              <h4><a href="{{pathFor route='devicemanager'}}" style="float: right;color:#18a689;"><i class="fa fa-info-circle" aria-hidden="true"></i> Device Details</a>
+                                              </h4>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{/each}}
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+</template>

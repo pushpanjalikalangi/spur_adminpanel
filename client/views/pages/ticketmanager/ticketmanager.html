@@ -1,0 +1,148 @@
+<template name="ticketmanager">
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="input-group">
+      <input  placeholder="Search user by User Name or Account Number" class=" form-control search">
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-flat ripple-effect btn-info"> Search</button>
+   </span>
+    </div>
+    <br/>
+ <br/>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+         <div class="ibox-content">
+       <div class="row">
+      <div class="table-responsive">
+        <table class="table table-hover no-margins datatable">
+          <thead>
+            <tr>
+              <th>Ticket Number</th>
+              <th>User Name & account_id</th>
+              <th>Comment</th>
+              <th>Assigned To</th>
+              <th>createdAt</th>
+              <th>updatedAt</th>
+              <th>closedAt</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each ticket}}
+            <tr>
+                <td>12345</td>
+                <td>{{created_by}},{{account_id}}</td>
+
+                <td><a class="view">  View Comments</a></td>
+                <td>{{user_assigned.slice.pop}}</td>
+                <td>{{time_details.created}}</td>
+                <td>{{time_details.updated}}</td>
+                <td>{{time_details.closed}}</td>
+              <td>{{remarks}}</td>
+               <td>
+                 {{#if equal remarks 'complete'}}
+
+                 {{else}}
+                 {{#if authenticate account_id user_assigned 'userloggedin'}}
+                 <button class="btn btn-default btn-sm add"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                 {{else}}
+                  {{#if check user_assigned}}
+                  <button class="btn btn-default btn-sm add"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                  {{/if}}
+                 {{/if}}
+                 {{/if}}
+             </td>
+           </tr>
+            {{/each}}
+          </tbody>
+        </table>
+
+              {{> mymodel}}
+              {{> viewcomments}}
+      </div>
+      </div>
+    </div>
+	</div>
+</div>
+</div>
+</div>
+
+</template>
+
+
+<template name="mymodel">
+  <div class="modal inmodal" id="add" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <p class="modal-title">Solving Issues</p>
+              </div>
+              <form class="addcomment">
+              <div class="modal-body">
+                <!-- <div class="control-group">
+                  <label>Assigned Person</label>
+                 <input type="text" name="user_assigned" placeholder="Assigned User Name" class="form-control">
+               </div> -->
+              <div class="control-group">
+                <label>Comment</label>
+               <input type="text" placeholder="Comments" name="comment" class="form-control">
+             </div>
+             <div class="control-group">
+               <label>Status</label>
+               <select name="state" id="state" class="form-control">
+                <option name="state" value="select">select</option>
+                <option name="state" value="Pending">Pending</option>
+                <option name="state" value="Inprogress">Inprogress</option>
+                <option name="state" value="complete">complete</option>
+            </select>
+            </div>
+            </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+                  <button id="addcomment" class="btn btn-primary btn-sm">Save changes</button>
+              </div>
+            </form>
+          </div>
+      </div>
+  </div>
+</template>
+<template name="viewcomments">
+  <div class="modal inmodal fade" id="view" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content modal-lg">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title">Comments</h4>
+          </div>
+          <div class="modal-body">
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Assigned User</th>
+                    <th>TimeStamp</th>
+                    <th>Reviews or Comments</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each viewcomments}}
+                     <tr>
+                       <td>{{#each user_assigned}} {{this}} <hr>{{/each}}</td>
+                        <td>{{#each comments}} {{timestamp}} <hr>{{/each}}</td>
+                       <td>{{#each comments}} {{comment}} <hr>{{/each}}</td>
+                       <td>{{#each comments}} {{status}} <hr>{{/each}}</td>
+                      </tr>
+                  {{/each}}
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</template>

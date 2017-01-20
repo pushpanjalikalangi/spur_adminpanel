@@ -1,0 +1,61 @@
+<template name="navigation">
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+
+            <!-- Close canvas menu used only on OffCanvas page -->
+            <!-- You can remove this tag if you dont use offCanvas menu -->
+            <a class="close-canvas-menu"><i class="fa fa-times"></i></a>
+            <!-- End offCanvas menu toggle -->
+
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element"> <span>
+                            <!-- <img alt="image" class="img-circle" src="img/logo.png" /> -->
+                            <h1>logo</h1>
+                             </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">SPUR | Admin Panel</strong>
+                            </span> <span class="text-muted text-xs block">name <b class="caret"></b></span> </span> </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a>Profile</a></li>
+                            <!-- <li><a href="{{pathFor route='login'}}">Logout</a></li> -->
+                        </ul>
+                    </div>
+                    <div class="logo-element">
+                        SPUR+
+                    </div>
+                </li>
+                <li class="{{isActiveRoute regex='dashboard'}}">
+                    <a href="{{pathFor route='dashboard'}}"><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.dashboard">Dashboard</span></a>
+                </li>
+                <li class="{{isActiveRoute regex='users'}}">
+                    <a href="{{pathFor route='users'}}"><i class="fa fa-users"></i> <span class="nav-label" data-i18n="nav.dashboard">Users</span></a>
+                </li>
+
+                <li class="{{isActiveRoute regex='pullcode|selenium|health'}}">
+                    <a href="{{pathFor route='devicemanager'}}"><i class="fa fa-desktop" aria-hidden="true"></i> <span class="nav-label" data-i18n="nav.miscellaneous">Device Management</span></a>
+                </li>
+                <li class="{{isActiveRoute regex='orders|payments|transactions'}}" >
+       <a href="#"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Sale Management</span><span class="fa arrow"></span></a>
+       <ul class="nav nav-second-level {{isActiveRoute regex='orders|payments|transactions' className='in'}}">
+
+         <li class="{{isActiveRoute regex='orders'}}"><a href="{{pathFor route='orders'}}">Orders List</a></li>
+           <li class="{{isActiveRoute regex='payments'}}"><a href="{{pathFor route='payments'}}">Payments Report</a></li>
+       </ul>
+     </li>
+                <li class="{{isActiveRoute regex='ticketmanager'}}">
+                    <a href="{{pathFor route='ticketmanager'}}"><i class="fa fa-ticket" aria-hidden="true"></i> <span class="nav-label" data-i18n="nav.dashboard">Ticket Management</span></a>
+                </li>
+                <li class="{{isActiveRoute regex='pushnotifications'}}">
+                    <a href="{{pathFor route='pushnotifications'}}"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <span class="nav-label">Push Notifications</span></a>
+                </li>
+                <li class="{{isActiveRoute regex='logmanager'}}">
+                    <a href="{{pathFor route='logmanager'}}"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="nav-label" data-i18n="nav.dashboard">Log Management</span></a>
+                </li>
+
+
+            </ul>
+
+        </div>
+    </nav>
+</template>
